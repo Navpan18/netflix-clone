@@ -3,17 +3,14 @@ import axios from "./axios";
 import "./Row.css";
 import Youtube from "react-youtube";
 import movieTrailer from "movie-trailer";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/blur.css";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
-const baseurl = "http://image.tmdb.org/t/p/original";
+const baseurl = "http://image.tmdb.org/t/p/w500";
 
 function Row({ title, fetchUrl, isLargeRow }) {
   const [movies, setMovies] = useState([]);
   const [trailerUrl, setTrailerUrl] = useState("");
   const [loaded, setLoaded] = useState(false);
-  const [loader, setLoader] = useState(true);
   useEffect(() => {
     //you can't use async function inside use effect so you to make an internal function and call it
     async function fetchData() {
@@ -22,8 +19,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
       setMovies(request.data.results);
       return request;
     }
-    const a = fetchData();
-    a.then((res)=>console.log(res))
+    fetchData();
   }, [fetchUrl]); // the variable taken outside of useffect must be added here
 
   const opts = {
